@@ -1,1 +1,0 @@
-// Defines React pages corresponding to different routes in the application
