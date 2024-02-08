@@ -1,1 +1,0 @@
-# Houses business logic services for handling authentication, trips, and users

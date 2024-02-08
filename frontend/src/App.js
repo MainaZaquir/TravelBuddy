@@ -1,6 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 import LoginForm from './components/LoginForm';
@@ -14,28 +13,15 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        <Switch>
-          <Route path="/login" component={LoginForm} />
-          <Route path="/signup" component={SignupForm} />
-          <Route path="/profile" component={Profile} />
-          <Route path="/settings" component={Settings} />
-          <Route path="/trips" component={TripList} />
-          <Route path="/trip/:id" component={TripDetails} />
-        </Switch>
+        <Routes>
+          <Route path="/" element= {<LoginForm />} />
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/signup" element={<SignupForm />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/trips" element={<TripList />} />
+          <Route path="/trip/:id" element={<TripDetails />} />
+        </Routes>
       </div>
     </Router>
   );

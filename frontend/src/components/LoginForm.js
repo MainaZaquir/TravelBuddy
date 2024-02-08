@@ -43,9 +43,9 @@ const LoginForm = () => {
   };
 
   // Redirects to the Dashboard component if logged in
-  if (loggedIn) {
-    return <Redirect to="/dashboard" />;
-  }
+  //if (loggedIn) {
+   // return <Redirect to="/dashboard" />;
+  //}
 
   return (
     <div className="login-container">
