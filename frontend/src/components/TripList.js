@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './TripList.css'; 
 
 const TripList = () => {
   const [trips, setTrips] = useState([]);
@@ -24,12 +25,12 @@ const TripList = () => {
   };
 
   return (
-    <div>
+    <div className="trip-list-container">
       <h2>List of Trips</h2>
-      {error && <p>{error}</p>}
-      <div>
+      {error && <p className="error-message">{error}</p>}
+      <div className="trip-items">
         {trips.map((trip) => (
-          <div key={trip.id}>
+          <div className="trip-item" key={trip.id}>
             <h3>{trip.destination}</h3>
             <p>Dates: {trip.dates}</p>
             <p>Description: {trip.description}</p>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './TripDetails.css'; 
 
 const TripDetails = ({ trip }) => {
   const [requestSent, setRequestSent] = useState(false);
@@ -11,7 +12,7 @@ const TripDetails = ({ trip }) => {
       });
       if (response.ok) {
         setRequestSent(true);
-           console.log('Successfully joined the trip');
+        console.log('Successfully joined the trip');
       } else {
         setError('Failed to join the trip');
         console.error('Failed to join the trip:', response.statusText);
@@ -23,9 +24,9 @@ const TripDetails = ({ trip }) => {
   };
 
   return (
-    <div>
+    <div className="trip-details-container">
       <h2>Trip Details</h2>
-      <div>
+      <div className="trip-details-content">
         <h3>{trip.destination}</h3>
         <p>Dates: {trip.dates}</p>
         <p>Description: {trip.description}</p>
@@ -33,10 +34,10 @@ const TripDetails = ({ trip }) => {
         <p>Price: {trip.price}</p>
         <p>Available Seats: {trip.availableSeats}</p>
       </div>
-      <button onClick={handleJoinTrip} disabled={requestSent}>
+      <button onClick={handleJoinTrip} disabled={requestSent} className="join-trip-button">
         {requestSent ? 'Request Sent' : 'Join Trip'}
       </button>
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 }

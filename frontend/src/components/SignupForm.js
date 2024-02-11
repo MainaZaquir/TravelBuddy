@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './SignupForm.css'; // Import the CSS file
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -40,9 +41,9 @@ const SignupForm = () => {
   };
 
   return (
-    <div>
+    <div className="signup-container">
       <h2>Sign Up</h2>
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -50,6 +51,7 @@ const SignupForm = () => {
           placeholder="Username"
           value={formData.username}
           onChange={handleChange}
+          className="signup-input"
         />
         <input
           type="email"
@@ -57,6 +59,7 @@ const SignupForm = () => {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
+          className="signup-input"
         />
         <input
           type="password"
@@ -64,6 +67,7 @@ const SignupForm = () => {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
+          className="signup-input"
         />
         <input
           type="password"
@@ -71,8 +75,9 @@ const SignupForm = () => {
           placeholder="Confirm Password"
           value={formData.confirmPassword}
           onChange={handleChange}
+          className="signup-input"
         />
-        <button type="submit">Sign Up</button>
+        <button type="submit" className="signup-button">Sign Up</button>
       </form>
     </div>
   );

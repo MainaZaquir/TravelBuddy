@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './LoginForm.css'; 
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -48,7 +49,7 @@ const LoginForm = () => {
   //}
 
   return (
-    <div className="login-container">
+    <div className="login-container" style={{ margin: '0 auto', textAlign: 'center' }}>
       <h2>Login</h2>
       {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>

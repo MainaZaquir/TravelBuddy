@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Settings.css'; // Import the CSS file
 
 const Settings = () => {
   const [formData, setFormData] = useState({
@@ -51,16 +52,17 @@ const Settings = () => {
   };
 
   return (
-    <div>
+    <div className="settings-container">
       <h2>Settings</h2>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      {error && <p className="error-message">{error}</p>}
+      <form onSubmit={handleSubmit} className="settings-form">
         <input
           type="password"
           name="password"
           placeholder="New Password"
           value={formData.password}
           onChange={handleChange}
+          className="settings-input"
         />
         <input
           type="password"
@@ -68,8 +70,9 @@ const Settings = () => {
           placeholder="Confirm New Password"
           value={formData.confirmPassword}
           onChange={handleChange}
+          className="settings-input"
         />
-        <button type="submit">Save Changes</button>
+        <button type="submit" className="settings-button">Save Changes</button>
       </form>
     </div>
   );
