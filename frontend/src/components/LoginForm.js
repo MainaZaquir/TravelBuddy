@@ -20,7 +20,7 @@ const LoginForm = () => {
       setError('Please fill in all fields');
     } else {
       try {
-        const response = await fetch('your-backend-login-endpoint', {
+        const response = await fetch('http://127.0.0.1:5000/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -42,11 +42,6 @@ const LoginForm = () => {
       }
     }
   };
-
-  // Redirects to the Dashboard component if logged in
-  //if (loggedIn) {
-   // return <Redirect to="/dashboard" />;
-  //}
 
   return (
     <div className="login-container" style={{ margin: '0 auto', textAlign: 'center' }}>

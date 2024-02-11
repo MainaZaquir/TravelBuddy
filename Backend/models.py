@@ -46,12 +46,3 @@ class Request(db.Model):
     def __repr__(self):
         return f"<Request(id={self.id}, user_id={self.user_id}, trip_id={self.trip_id}, status={self.status})>"
 
-
-
-
-
-
-
-
-
-    

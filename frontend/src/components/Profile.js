@@ -16,7 +16,7 @@ const Profile = () => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await fetch('your-backend-profile-endpoint');
+      const response = await fetch('http://127.0.0.1:5000/profile');
       const data = await response.json();
       if (response.ok) {
         setFormData({
@@ -39,7 +39,25 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validation and submission logic
+    try {
+      const response = await fetch('/profile', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        console.log('Profile updated successfully');
+        setEditing(false); // Exit editing mode after successful update
+      } else {
+        setError('Failed to update profile. Please try again.');
+        console.error('Profile update error:', response.statusText);
+      }
+    } catch (error) {
+      setError('Failed to update profile. Please try again.');
+      console.error('Profile update error:', error);
+    }
   };
 
   return (

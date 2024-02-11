@@ -38,7 +38,7 @@ const Settings = () => {
 
   const changePassword = async (newPassword) => {
     try {
-      const response = await fetch('your-backend-change-password-endpoint', {
+      const response = await fetch('http://127.0.0.1:5000/change-password', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

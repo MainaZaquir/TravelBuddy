@@ -11,7 +11,7 @@ const TripList = () => {
 
   const fetchTrips = async () => {
     try {
-      const response = await fetch('your-backend-trips-endpoint');
+      const response = await fetch('http://127.0.0.1:5000/trips');
       const data = await response.json();
       if (response.ok) {
         setTrips(data);
