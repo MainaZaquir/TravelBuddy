@@ -1,12 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
-from config import Config  
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, session
 from models import Trip, User, Request, db
 
 app = Flask(__name__)
 api = Api(app)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///travel_buddy.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
@@ -16,6 +16,9 @@ migrate = Migrate(app, db)
 
 db.init_app(app)
 
+@app.route('/')
+def home():
+    return {"message": "welcome to the travel API"}
 # Profile endpoint
 @app.route('/profile', methods=['GET', 'PUT'])
 def profile():
@@ -50,7 +53,7 @@ def change_password():
     user = User.query.get(user_id)
     if user:
         new_password = request.json.get('new_password')
-        user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+        # user.password = bcrypt.generate_password_hash(new_password).decode('utf-8')
         db.session.commit()
         return jsonify({'message': 'Password changed successfully'}), 200
     else:
@@ -61,17 +64,21 @@ def change_password():
 def get_trips():
     trips = []
     for trip in Trip.query.all():
-            trip_dict = {'id': trip.id, 'destination': trip.destination, 'start_date ': trip.start_date , 'description': trip.description}
-    # trips = Trip.query.all()
-    trip.append(trip_dict)
+        trip_dict = {
+            'id': trip.id, 
+            'destination': trip.destination, 
+            'start_date ': trip.start_date , 
+            'name': trip.name,
+            'end_date': trip.end_date
+        }
+        trips.append(trip_dict)
+    db.session.commit()
 
     response = make_response(
-        jsonify(),
+        jsonify(trips),
         200,
     )
     return response
-    # trip_list = [{'id': trip.id, 'destination': trip.destination, 'start_date ': trip.start_date , 'description': trip.description} for trip in trips]
-    # return jsonify(Trip_dict), 200
 
 if __name__ == '__main__':
     app.run(debug=True, port=5555)
