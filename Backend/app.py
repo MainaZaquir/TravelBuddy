@@ -1,31 +1,20 @@
 from flask import Flask, request, jsonify
+from flask_migrate import Migrate
+from flask_restful import Api, Resource
 from config import Config  
 from flask_sqlalchemy import SQLAlchemy
-from flask_bcrypt import Bcrypt
+from models import Trip, User, Request, db
 
 app = Flask(__name__)
-app.config.from_object(Config)  
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
+api = Api(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///travel_buddy.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 
-# Definining database models
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
+app.json.compact = True
+migrate = Migrate(app, db)
 
-    def __repr__(self):
-        return f"<User(id={self.id}, username={self.username}, email={self.email})>"
-
-class Trip(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    destination = db.Column(db.String(100), nullable=False)
-    dates = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.String(200), nullable=False)
-
-    def __repr__(self):
-        return f"<Trip(id={self.id}, destination={self.destination}, dates={self.dates}, description={self.description})>"
+db.init_app(app)
 
 # Profile endpoint
 @app.route('/profile', methods=['GET', 'PUT'])
@@ -70,9 +59,19 @@ def change_password():
 # Trips endpoint
 @app.route('/trips', methods=['GET'])
 def get_trips():
-    trips = Trip.query.all()
-    trip_list = [{'id': trip.id, 'destination': trip.destination, 'dates': trip.dates, 'description': trip.description} for trip in trips]
-    return jsonify({'trips': trip_list}), 200
+    trips = []
+    for trip in Trip.query.all():
+            trip_dict = {'id': trip.id, 'destination': trip.destination, 'start_date ': trip.start_date , 'description': trip.description}
+    # trips = Trip.query.all()
+    trip.append(trip_dict)
+
+    response = make_response(
+        jsonify(),
+        200,
+    )
+    return response
+    # trip_list = [{'id': trip.id, 'destination': trip.destination, 'start_date ': trip.start_date , 'description': trip.description} for trip in trips]
+    # return jsonify(Trip_dict), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5555)

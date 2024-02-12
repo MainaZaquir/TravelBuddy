@@ -46,3 +46,21 @@ class Request(db.Model):
     def __repr__(self):
         return f"<Request(id={self.id}, user_id={self.user_id}, trip_id={self.trip_id}, status={self.status})>"
 
+# Definining database models
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(50), unique=True, nullable=False)
+#     password = db.Column(db.String(100), nullable=False)
+#     email = db.Column(db.String(100), unique=True, nullable=False)
+
+#     def __repr__(self):
+#         return f"<User(id={self.id}, username={self.username}, email={self.email})>"
+
+# class Trip(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     destination = db.Column(db.String(100), nullable=False)
+#     dates = db.Column(db.String(100), nullable=False)
+#     description = db.Column(db.String(200), nullable=False)
+
+#     def __repr__(self):
+#         return f"<Trip(id={self.id}, destination={self.destination}, dates={self.dates}, description={self.description})>"

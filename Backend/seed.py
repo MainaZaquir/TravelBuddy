@@ -7,9 +7,9 @@ def seed_database():
 
         db.create_all()
         users_data = [
-            {'username': 'uniqe_user011', 'password': 'password11', 'email': 'uniqe_user011@example.com'},
-            {'username': 'uniqe_user102', 'password': 'password12', 'email': 'uniqe_user102@example.com'},
-            {'username': 'uniqe_user13', 'password': 'password13', 'email': 'uniqe_user13@example.com'}
+            {'username': 'Irarah', 'password': 'password11', 'email': 'Irarah011@example.com'},
+            {'username': 'Boomer', 'password': 'password12', 'email': 'Boomer102@example.com'},
+            {'username': 'Tengen13', 'password': 'password13', 'email': 'Tengen13@example.com'}
         ]
 
         for user_data in users_data:
@@ -18,8 +18,9 @@ def seed_database():
 
         db.session.commit()
         trips_data = [
-            {'name': 'Trip to Paris', 'destination': 'Paris', 'start_date': datetime.strptime('2024-02-15', '%Y-%m-%d'), 'end_date': datetime.strptime('2024-02-20', '%Y-%m-%d'), 'user_id': 1},
-            {'name': 'Weekend Getaway', 'destination': 'Beach', 'start_date': datetime.strptime('2024-03-10', '%Y-%m-%d'), 'end_date': datetime.strptime('2024-03-12', '%Y-%m-%d'), 'user_id': 2}
+            {'name': 'Trip to Maldives', 'destination': 'Maldives', 'start_date': datetime.strptime('2024-02-15', '%Y-%m-%d'), 'end_date': datetime.strptime('2024-02-20', '%Y-%m-%d'), 'user_id': 1},
+            {'name': 'Weekend Getaway', 'destination': 'Jamiaca', 'start_date': datetime.strptime('2024-03-10', '%Y-%m-%d'), 'end_date': datetime.strptime('2024-03-12', '%Y-%m-%d'), 'user_id': 2},
+            {'name': 'Calm Visit', 'destination': 'Spain', 'start_date': datetime.strptime('2024-02-19', '%Y-%m-%d'), 'end_date': datetime.strptime('2024-02-21', '%Y-%m-%d'), 'user_id': 3}
         ]
 
         for trip_data in trips_data:
