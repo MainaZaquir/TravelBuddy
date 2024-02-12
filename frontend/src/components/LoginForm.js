@@ -8,8 +8,7 @@ const LoginForm = () => {
     password: ''
   });
   const [error, setError] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false); // This state is going to track a successful login
-
+  const [loggedIn, setLoggedIn] = useState(false); 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

@@ -5,7 +5,6 @@ from flask_jwt_extended import create_access_token, JWTManager, jwt_required
 from flask_bcrypt import Bcrypt
 from models import User, BlacklistedToken
 
-# Add the parent directory (containing 'models.py') to the Python path
 parent_dir = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
 sys.path.append(parent_dir)
 

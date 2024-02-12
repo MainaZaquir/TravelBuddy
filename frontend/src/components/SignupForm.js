@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './SignupForm.css'; // Import the CSS file
+import './SignupForm.css'; 
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ const SignupForm = () => {
       setError('Passwords do not match');
     } else {
       try {
-        const response = await fetch('http://127.0.0.1:5000/', {
+        const response = await fetch('http://127.0.0.1:5000', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

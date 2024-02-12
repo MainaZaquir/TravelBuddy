@@ -1,14 +1,14 @@
 from flask import Flask, request, jsonify
-from config import Config  # Import the Config class from config.py
+from config import Config  
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
-app.config.from_object(Config)  # Use the Config class for application configuration
+app.config.from_object(Config)  
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
-# Define database models
+# Definining database models
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
@@ -31,7 +31,7 @@ class Trip(db.Model):
 @app.route('/profile', methods=['GET', 'PUT'])
 def profile():
     if request.method == 'GET':
-        # Fetch user profile
+        # Fetching the user profile
         user_id = request.args.get('user_id')
         user = User.query.get(user_id)
         if user:
@@ -42,11 +42,11 @@ def profile():
         else:
             return jsonify({'message': 'User not found'}), 404
     elif request.method == 'PUT':
-        # Update user profile
+        # Updating the user profile
         user_id = request.args.get('user_id')
         user = User.query.get(user_id)
         if user:
-            # Update user attributes
+            # Updating the user attributes
             user.username = request.json.get('username', user.username)
             user.email = request.json.get('email', user.email)
             db.session.commit()
@@ -54,7 +54,7 @@ def profile():
         else:
             return jsonify({'message': 'User not found'}), 404
 
-# Change password endpoint
+# Changing the password endpoint
 @app.route('/change-password', methods=['PUT'])
 def change_password():
     user_id = request.args.get('user_id')

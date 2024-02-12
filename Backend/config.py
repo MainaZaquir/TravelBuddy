@@ -10,7 +10,6 @@ class Config:
         alphabet = string.ascii_letters + string.digits + string.punctuation
         return ''.join(secrets.choice(alphabet) for _ in range(length))
 
-# This will directly generate the secret key when this file is executed
 if __name__ == "__main__":
     secret_key = Config.generate_secret_key()
     print("Generated Secret Key:", secret_key)

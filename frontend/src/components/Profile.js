@@ -49,7 +49,7 @@ const Profile = () => {
       });
       if (response.ok) {
         console.log('Profile updated successfully');
-        setEditing(false); // Exit editing mode after successful update
+        setEditing(false); 
       } else {
         setError('Failed to update profile. Please try again.');
         console.error('Profile update error:', response.statusText);
