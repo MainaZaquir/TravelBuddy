@@ -7,7 +7,7 @@ const TripDetails = ({ trip }) => {
 
   const handleJoinTrip = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/${trip.id}`, {
+      const response = await fetch(`http://127.0.0.1:5555/${trip.id}`, {
         method: 'POST',
       });
       if (response.ok) {

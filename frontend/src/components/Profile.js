@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Profile.css'; 
+import { useParams} from "react-router-dom";
+
 
 const Profile = () => {
   const [editing, setEditing] = useState(false);
@@ -9,6 +11,8 @@ const Profile = () => {
     interests: ''
   });
   const [error, setError] = useState('');
+  
+  const {id} = useParams();
 
   useEffect(() => {
     fetchUserProfile();
@@ -16,16 +20,17 @@ const Profile = () => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/profile');
-      const data = await response.json();
+      const response = await fetch(`http://127.0.0.1:5555/profile/${id}`);
       if (response.ok) {
+        const data = await response.json();
         setFormData({
           username: data.username,
           email: data.email,
           interests: data.interests
         });
       } else {
-        setError('Error fetching user profile');
+        const errorMessage = await response.text();
+        setError(`Error fetching user profile: ${errorMessage}`);
       }
     } catch (error) {
       setError('Error fetching user profile');
@@ -40,7 +45,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/profile', {
+      const response = await fetch(`http://127.0.0.1:5555/profile/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -51,8 +56,9 @@ const Profile = () => {
         console.log('Profile updated successfully');
         setEditing(false); 
       } else {
-        setError('Failed to update profile. Please try again.');
-        console.error('Profile update error:', response.statusText);
+        const errorMessage = await response.text();
+        setError(`Failed to update profile: ${errorMessage}`);
+        console.error('Profile update error:', errorMessage);
       }
     } catch (error) {
       setError('Failed to update profile. Please try again.');

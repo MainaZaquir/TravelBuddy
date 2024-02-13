@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useParams} from "react-router-dom";
 import './LoginForm.css'; 
 
 const LoginForm = () => {
@@ -12,14 +13,16 @@ const LoginForm = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+ 
+  const {id} = useParams();
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.username === '' || formData.password === '') {
       setError('Please fill in all fields');
     } else {
       try {
-        const response = await fetch('http://127.0.0.1:5000/login', {
+        const response = await fetch(`http://127.0.0.1:5555/profile/${id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
