@@ -16,7 +16,7 @@ const Profile = () => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/profile');
+      const response = await fetch('http://127.0.0.1:5555/profile');
       const data = await response.json();
       if (response.ok) {
         setFormData({

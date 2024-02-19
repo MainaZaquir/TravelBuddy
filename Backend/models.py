@@ -46,6 +46,7 @@ class Request(db.Model):
     def __repr__(self):
         return f"<Request(id={self.id}, user_id={self.user_id}, trip_id={self.trip_id}, status={self.status})>"
 
+
 # Definining database models
 # class User(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
@@ -64,3 +65,13 @@ class Request(db.Model):
 
 #     def __repr__(self):
 #         return f"<Trip(id={self.id}, destination={self.destination}, dates={self.dates}, description={self.description})>"
+
+
+
+
+
+
+
+
+    
+
