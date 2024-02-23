@@ -1,8 +1,5 @@
 import os
 
-from dotenv import load_dotenv
-load_dotenv()
-
 from flask import Flask, request, jsonify, make_response
 from flask_migrate import Migrate
 from flask_cors import CORS
