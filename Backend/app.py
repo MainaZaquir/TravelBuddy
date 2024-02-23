@@ -100,7 +100,7 @@ def get_trips():
         trip_dict = {
             'id': trip.id,
             'destination': trip.destination,
-            'start_date ': trip.start_date,
+            'start_date': trip.start_date,
             'name': trip.name,
             'end_date': trip.end_date
         }

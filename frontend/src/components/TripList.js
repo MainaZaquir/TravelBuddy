@@ -31,12 +31,10 @@ const TripList = () => {
       <div className="trip-items">
         {trips.map((trip) => (
           <div className="trip-item" key={trip.id}>
-            <h3>{trip.destination}</h3>
-            <p>Dates: {trip.dates}</p>
-            <p>Description: {trip.description}</p>
-            <p>Duration: {trip.duration}</p>
-            <p>Price: {trip.price}</p>
-            <p>Available Seats: {trip.availableSeats}</p>
+            <h3>{trip.destination}</h3>            
+            <p>name: {trip.name}</p>
+            <p>Start Date: {trip.start_date}</p>
+            <p>End Date: {trip.end_date}</p>
           </div>
         ))}
       </div>
