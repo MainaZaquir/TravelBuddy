@@ -1,44 +1,51 @@
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask, request, jsonify, make_response
 from flask_migrate import Migrate
-from flask_restful import Api, Resource
-from flask_sqlalchemy import SQLAlchemy, session
-from models import Trip, User, Request, db
+from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+from models import Trip, User, db
+from datetime import datetime
 
 app = Flask(__name__)
-api = Api(app)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///travel_buddy.db'
+CORS(app)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI", 'postgres://maina:0ptWCXmgfwvD0eHIaOH4OGU4HAvtM14v@dpg-cnc7mmicn0vc73970aqg-a.frankfurt-postgres.render.com/travelbuddy_app')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 
 app.json.compact = True
+db.init_app(app)
 migrate = Migrate(app, db)
 
-db.init_app(app)
 
 @app.route('/')
 def home():
-    return {"message": "welcome to the travel API"}
-# Profile endpoint
-@app.route('/profile', methods=['GET', 'PUT'])
-def profile():
+    return {"message": "Welcome to the travel API"}
+
+@app.route('/profile/<int:id>', methods=['GET', 'PUT'])
+def profile(id):
     if request.method == 'GET':
-        # Fetching the user profile
-        user_id = request.args.get('user_id')
-        user = User.query.get(user_id)
+        # user_id = request.args.get('user_id')
+        user = User.query.filter_by(id=id).first()
         if user:
-            return jsonify({
+            response_data = {
                 'username': user.username,
                 'email': user.email
-            }), 200
+            }
+            response = make_response(
+                jsonify(response_data), 200
+            )
+            return response
+            # return make_response(jsonify(response_data), 200)
         else:
             return jsonify({'message': 'User not found'}), 404
     elif request.method == 'PUT':
-        # Updating the user profile
         user_id = request.args.get('user_id')
         user = User.query.get(user_id)
         if user:
-            # Updating the user attributes
             user.username = request.json.get('username', user.username)
             user.email = request.json.get('email', user.email)
             db.session.commit()
@@ -46,7 +53,27 @@ def profile():
         else:
             return jsonify({'message': 'User not found'}), 404
 
-# Changing the password endpoint
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    username = request.json.get('username')
+    email = request.json.get('email')
+    password = request.json.get('password')
+    
+    if not username or not email or not password:
+        return jsonify({'message': 'Please provide username, email, and password'}), 400
+    
+    existing_user = User.query.filter_by(username=username).first()
+    if existing_user:
+        return jsonify({'message': 'Username already exists'}), 409
+    
+    new_user = User(username=username, email=email, password=password)
+    db.session.add(new_user)
+    db.session.commit()
+    
+    return jsonify({'message': 'User signed up successfully'}), 201
+
+
 @app.route('/change-password', methods=['PUT'])
 def change_password():
     user_id = request.args.get('user_id')
@@ -59,15 +86,15 @@ def change_password():
     else:
         return jsonify({'message': 'User not found'}), 404
 
-# Trips endpoint
+
 @app.route('/trips', methods=['GET'])
 def get_trips():
     trips = []
     for trip in Trip.query.all():
         trip_dict = {
-            'id': trip.id, 
-            'destination': trip.destination, 
-            'start_date ': trip.start_date , 
+            'id': trip.id,
+            'destination': trip.destination,
+            'start_date ': trip.start_date,
             'name': trip.name,
             'end_date': trip.end_date
         }
@@ -79,6 +106,7 @@ def get_trips():
         200,
     )
     return response
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5555)
