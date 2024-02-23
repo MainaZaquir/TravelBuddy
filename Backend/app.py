@@ -1,13 +1,18 @@
 import os
 
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, render_template
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from models import Trip, User, db
 from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(
+    __name__,
+    static_url_path='',
+    static_folder='../client/build',
+    template_folder='../client/build'
+)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI", 'postgres://maina:0ptWCXmgfwvD0eHIaOH4OGU4HAvtM14v@dpg-cnc7mmicn0vc73970aqg-a.frankfurt-postgres.render.com/travelbuddy_app')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -17,6 +22,10 @@ app.json.compact = True
 db.init_app(app)
 migrate = Migrate(app, db)
 
+@app.route('/')
+@app.route('/<int:id>')
+def index(id=0):
+    return render_template("index.html")
 
 @app.route('/')
 def home():
