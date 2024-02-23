@@ -22,7 +22,7 @@ const LoginForm = () => {
       setError('Please fill in all fields');
     } else {
       try {
-        const response = await fetch(`http://127.0.0.1:5555/profile/${id}`, {
+        const response = await fetch(`/profile/${id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

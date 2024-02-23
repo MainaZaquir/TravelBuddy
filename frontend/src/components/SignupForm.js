@@ -22,7 +22,7 @@ const SignupForm = () => {
       setError('Passwords do not match');
     } else {
       try {
-        const response = await fetch('http://127.0.0.1:5555/signup', { // Change endpoint to /signup
+        const response = await fetch('/signup', { // Change endpoint to /signup
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

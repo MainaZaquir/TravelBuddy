@@ -17,7 +17,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:5555/profile/${id}`);
+        const response = await fetch(`/profile/${id}`);
         if (response.ok) {
           const data = await response.json();
           setFormData({
