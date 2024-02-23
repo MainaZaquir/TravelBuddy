@@ -48,27 +48,33 @@ const LoginForm = () => {
   return (
     <div className="login-container" style={{ margin: '0 auto', textAlign: 'center' }}>
       <h2>Login</h2>
-      {error && <p className="error-message">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-          className="login-input"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          className="login-input"
-        />
-        <button type="submit" className="login-button">Login</button>
-      </form>
-      <p className="signup-link">Don't have an account? <Link to="/signup">Sign up here</Link></p>
+      {loggedIn ? (
+        <p>You are logged in.</p>
+      ) : (
+        <>
+          {error && <p className="error-message">{error}</p>}
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="username"
+              placeholder="Username"
+              value={formData.username}
+              onChange={handleChange}
+              className="login-input"
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              className="login-input"
+            />
+            <button type="submit" className="login-button">Login</button>
+          </form>
+          <p className="signup-link">Don't have an account? <Link to="/signup">Sign up here</Link></p>
+        </>
+      )}
     </div>
   );
 }

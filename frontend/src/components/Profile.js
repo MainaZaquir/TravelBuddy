@@ -15,28 +15,29 @@ const Profile = () => {
   const {id} = useParams();
 
   useEffect(() => {
-    fetchUserProfile();
-  }, []);
-
-  const fetchUserProfile = async () => {
-    try {
-      const response = await fetch(`http://127.0.0.1:5555/profile/${id}`);
-      if (response.ok) {
-        const data = await response.json();
-        setFormData({
-          username: data.username,
-          email: data.email,
-          interests: data.interests
-        });
-      } else {
-        const errorMessage = await response.text();
-        setError(`Error fetching user profile: ${errorMessage}`);
+    const fetchUserProfile = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:5555/profile/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setFormData({
+            username: data.username,
+            email: data.email,
+            interests: data.interests
+          });
+        } else {
+          const errorMessage = await response.text();
+          setError(`Error fetching user profile: ${errorMessage}`);
+        }
+      } catch (error) {
+        setError('Error fetching user profile');
+        console.error('Error fetching user profile:', error);
       }
-    } catch (error) {
-      setError('Error fetching user profile');
-      console.error('Error fetching user profile:', error);
-    }
-  };
+    };
+  
+    fetchUserProfile(); // Call the function immediately
+  
+  }, [id]); // Empty dependency array since we want it to run only once
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
