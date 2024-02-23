@@ -14,7 +14,7 @@ app = Flask(
     template_folder='../client/build'
 )
 CORS(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI", 'postgres://maina:0ptWCXmgfwvD0eHIaOH4OGU4HAvtM14v@dpg-cnc7mmicn0vc73970aqg-a.frankfurt-postgres.render.com/travelbuddy_app')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI", 'postgresql://maina:0ptWCXmgfwvD0eHIaOH4OGU4HAvtM14v@dpg-cnc7mmicn0vc73970aqg-a.frankfurt-postgres.render.com/travelbuddy_app')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = False
 
