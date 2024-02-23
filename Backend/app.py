@@ -10,8 +10,8 @@ from datetime import datetime
 app = Flask(
     __name__,
     static_url_path='',
-    static_folder='../client/build',
-    template_folder='../client/build'
+    static_folder='../frontend/build',
+    template_folder='../frontend/build'
 )
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URI", 'postgresql://maina:0ptWCXmgfwvD0eHIaOH4OGU4HAvtM14v@dpg-cnc7mmicn0vc73970aqg-a.frankfurt-postgres.render.com/travelbuddy_app')
